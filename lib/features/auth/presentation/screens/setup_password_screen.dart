@@ -1,5 +1,6 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -8,21 +9,24 @@ import 'package:mealgro_rider_app/app/theme/app_colors.dart';
 import 'package:mealgro_rider_app/app/theme/app_dimensions.dart';
 import 'package:mealgro_rider_app/app/theme/app_text_styles.dart';
 import 'package:mealgro_rider_app/core/widgets/app_text_field.dart';
+import 'package:mealgro_rider_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:mealgro_rider_app/features/auth/presentation/widgets/auth_continue_button.dart';
 import 'package:mealgro_rider_app/features/auth/presentation/widgets/auth_privacy_footer.dart';
 import 'package:mealgro_rider_app/features/auth/presentation/widgets/auth_red_header.dart';
+import 'package:mealgro_rider_app/features/auth/presentation/widgets/rider_type_toggle.dart';
 
 /// Setup Password screen.
 ///
 /// Design: Onboarding > Setup your password (Figma frame 390×844)
-class SetupPasswordScreen extends StatefulWidget {
+class SetupPasswordScreen extends ConsumerStatefulWidget {
   const SetupPasswordScreen({super.key});
 
   @override
-  State<SetupPasswordScreen> createState() => _SetupPasswordScreenState();
+  ConsumerState<SetupPasswordScreen> createState() =>
+      _SetupPasswordScreenState();
 }
 
-class _SetupPasswordScreenState extends State<SetupPasswordScreen> {
+class _SetupPasswordScreenState extends ConsumerState<SetupPasswordScreen> {
   final _passwordController = TextEditingController();
   final _confirmController = TextEditingController();
 
@@ -56,7 +60,12 @@ class _SetupPasswordScreenState extends State<SetupPasswordScreen> {
   }
 
   void _handleContinue() {
-    context.go(RoutePaths.authSuccess);
+    final isExternal = ref.read(authProvider).riderType == RiderType.external;
+    if (isExternal) {
+      context.go(RoutePaths.whereAreYouFrom);
+    } else {
+      context.go(RoutePaths.authSuccess);
+    }
   }
 
   @override
@@ -130,7 +139,8 @@ class _SetupPasswordScreenState extends State<SetupPasswordScreen> {
                           obscure: _passwordObscure,
                           hasText: _passwordHasText,
                           onToggle: () => setState(
-                              () => _passwordObscure = !_passwordObscure),
+                            () => _passwordObscure = !_passwordObscure,
+                          ),
                         ),
                       ),
 
@@ -152,7 +162,8 @@ class _SetupPasswordScreenState extends State<SetupPasswordScreen> {
                           obscure: _confirmObscure,
                           hasText: _confirmHasText,
                           onToggle: () => setState(
-                              () => _confirmObscure = !_confirmObscure),
+                            () => _confirmObscure = !_confirmObscure,
+                          ),
                         ),
                       ),
 

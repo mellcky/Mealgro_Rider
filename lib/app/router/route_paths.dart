@@ -9,6 +9,7 @@ abstract final class RoutePaths {
   static const String register = '/register';
   static const String verifyEmail = '/verify-email';
   static const String setupPassword = '/setup-password';
+  static const String whereAreYouFrom = '/where-are-you-from';
   static const String authSuccess = '/auth-success';
   static const String loginEmail = '/login-email';
   static const String loginRiderId = '/login-rider-id';
@@ -16,6 +17,7 @@ abstract final class RoutePaths {
   // ── Bottom Nav Shell (5 persistent tabs) ─────────────────────────────────
   static const String home = '/home';
   static const String requests = '/requests';
+  static const String orders = '/orders';
   static const String history = '/history';
   static const String earnings = '/earnings';
   static const String profile = '/profile';

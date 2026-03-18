@@ -8,11 +8,14 @@ import 'package:mealgro_rider_app/app/theme/app_text_styles.dart';
 ///
 /// Full-width pill button with a centred label and a semi-transparent
 /// arrow circle pinned to the right edge.
+/// Set [showArrow] to `false` to render a plain centred-label button
+/// (e.g. the "Continue to app" button on the success screen).
 class AuthContinueButton extends StatelessWidget {
   const AuthContinueButton({
     super.key,
     required this.onPressed,
     this.label = 'Continue',
+    this.showArrow = true,
   });
 
   /// Pass `null` to render the button in its disabled (greyed-out) state.
@@ -20,6 +23,9 @@ class AuthContinueButton extends StatelessWidget {
 
   /// Button label text. Defaults to 'Continue'.
   final String label;
+
+  /// Whether to show the arrow icon on the right. Defaults to `true`.
+  final bool showArrow;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +49,8 @@ class AuthContinueButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Balancing spacer (mirrors arrow width)
-            SizedBox(width: 32.r),
+            // Balancing spacer — only needed when arrow is visible
+            if (showArrow) SizedBox(width: 32.r),
 
             // ── Label ─────────────────────────────────────────────────
             Expanded(
@@ -56,16 +62,18 @@ class AuthContinueButton extends StatelessWidget {
             ),
 
             // ── Arrow icon — pinned to right ──────────────────────────
-            Container(
-              width: 32.r,
-              height: 32.r,
-              alignment: Alignment.center,
-              child: Icon(
-                Icons.arrow_forward_rounded,
-                color: onPressed != null ? AppColors.white : AppColors.grey500,
-                size: 18.r,
+            if (showArrow)
+              Container(
+                width: 32.r,
+                height: 32.r,
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.arrow_forward_rounded,
+                  color:
+                      onPressed != null ? AppColors.white : AppColors.grey500,
+                  size: 18.r,
+                ),
               ),
-            ),
           ],
         ),
       ),

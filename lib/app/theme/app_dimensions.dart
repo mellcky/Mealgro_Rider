@@ -14,6 +14,7 @@ abstract final class AppDimensions {
   static const double space4 = 4;
   static const double space8 = 8;
   static const double space12 = 12;
+  static const double space14 = 14;
   static const double space16 = 16;
   static const double space20 = 20;
   static const double space24 = 24;
@@ -32,10 +33,11 @@ abstract final class AppDimensions {
   static const double radiusXS = 4;
   static const double radiusS = 8;
   static const double radiusM = 12;
-  static const double radiusL = 16;
+  static const double radiusL = 15;
   static const double radiusXL = 24;
   static const double radiusXXL = 32;
   static const double radiusCircle = 29.63;
+  static const double radiusEarningCard = 29;
 
   // ── Component Heights ─────────────────────────────────────────────────────
   static const double buttonHeight = 56;

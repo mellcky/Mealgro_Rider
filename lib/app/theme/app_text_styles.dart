@@ -102,9 +102,9 @@ abstract final class AppTextStyles {
       );
 
   static TextStyle get button => TextStyle(
-        fontFamily: _font,
+        fontFamily: 'Garet',
         fontSize: 16.sp,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w800,
         color: AppColors.textOnPrimary,
         letterSpacing: 0.2,
         height: 1.2,

@@ -30,13 +30,16 @@ class MealgroRiderApp extends ConsumerWidget {
           builder: (context, routerChild) {
             // Clamps system text-scale factor so large-text a11y setting
             // does not break the layout while we build custom typography.
+            // We extract the raw scale with .scale(1.0) and create a fresh
+            // TextScaler.linear to avoid the assertion that fires when
+            // .clamp() is composed on an already-clamped TextScaler (which
+            // can produce maxScale == minScale and fail maxScale > minScale).
             final mediaQuery = MediaQuery.of(context);
+            final scaleFactor =
+                mediaQuery.textScaler.scale(1.0).clamp(1.0, 1.2);
             return MediaQuery(
               data: mediaQuery.copyWith(
-                textScaler: mediaQuery.textScaler.clamp(
-                  minScaleFactor: 1.0,
-                  maxScaleFactor: 1.2,
-                ),
+                textScaler: TextScaler.linear(scaleFactor),
               ),
               child: routerChild!,
             );

@@ -2,28 +2,31 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mealgro_rider_app/app/router/route_paths.dart';
 import 'package:mealgro_rider_app/app/theme/app_colors.dart';
 import 'package:mealgro_rider_app/app/theme/app_dimensions.dart';
 import 'package:mealgro_rider_app/app/theme/app_text_styles.dart';
+import 'package:mealgro_rider_app/features/auth/presentation/providers/auth_provider.dart';
 import 'package:mealgro_rider_app/features/auth/presentation/widgets/auth_continue_button.dart';
 import 'package:mealgro_rider_app/features/auth/presentation/widgets/auth_otp_field.dart';
 import 'package:mealgro_rider_app/features/auth/presentation/widgets/auth_privacy_footer.dart';
 import 'package:mealgro_rider_app/features/auth/presentation/widgets/auth_red_header.dart';
+import 'package:mealgro_rider_app/features/auth/presentation/widgets/rider_type_toggle.dart';
 
 /// Verify Email OTP screen.
 ///
 /// Design: Onboarding > Verify your Email (Figma frame 390×844)
-class VerifyEmailScreen extends StatefulWidget {
+class VerifyEmailScreen extends ConsumerStatefulWidget {
   const VerifyEmailScreen({super.key});
 
   @override
-  State<VerifyEmailScreen> createState() => _VerifyEmailScreenState();
+  ConsumerState<VerifyEmailScreen> createState() => _VerifyEmailScreenState();
 }
 
-class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
+class _VerifyEmailScreenState extends ConsumerState<VerifyEmailScreen> {
   static const int _resendSeconds = 60;
 
   final _otpController = TextEditingController();
@@ -83,6 +86,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isExternal = ref.watch(authProvider).riderType == RiderType.external;
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.light,
       child: Scaffold(
@@ -150,15 +155,34 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         onResend: _onResend,
                       ),
 
-                      SizedBox(height: 66.h),
+                      SizedBox(height: 42.h),
 
                       // ── Continue button ──────────────────────────────────
                       AuthContinueButton(
                         onPressed: _isComplete ? _handleContinue : null,
                       ),
 
+                      // ── "Use phone number instead" — External rider only ──
+                      if (isExternal) ...[
+                        SizedBox(height: 66.h),
+                        GestureDetector(
+                          onTap: () {
+                            // TODO: switch to phone-number verification
+                          },
+                          child: Text(
+                            'Use phone number instead',
+                            style: AppTextStyles.bodyS.copyWith(
+                              
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w400,
+                              decorationColor: AppColors.primary,
+                            ),
+                          ),
+                        ),
+                      ],
+
                       SizedBox(
-                        height: MediaQuery.of(context).padding.bottom + 128.h,
+                        height: MediaQuery.of(context).padding.bottom + 88.h,
                       ),
 
                       // ── Privacy footer ────────────────────────────────────

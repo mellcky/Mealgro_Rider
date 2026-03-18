@@ -5,6 +5,7 @@ import 'package:mealgro_rider_app/app/router/route_paths.dart';
 import 'package:mealgro_rider_app/app/theme/app_colors.dart';
 import 'package:mealgro_rider_app/app/theme/app_dimensions.dart';
 import 'package:mealgro_rider_app/app/theme/app_text_styles.dart';
+import 'package:mealgro_rider_app/core/constants/app_icons.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -27,7 +28,7 @@ class SplashScreen extends StatelessWidget {
             // ── Rider illustration ────────────────────────────────────────
             Expanded(
               child: Image.asset(
-                'assets/icons/delivery-character-with-scooter-with-face-mask-3d-illustration 1.png',
+                AppIcons.deliveryCharacterSplash,
                 fit: BoxFit.contain,
               ),
             ),
@@ -58,8 +59,10 @@ class SplashScreen extends StatelessWidget {
                     'Food Delivery Made Easy',
                     textAlign: TextAlign.center,
                     style: AppTextStyles.bodyL.copyWith(
+                      fontSize: 14.sp,
                       color: AppColors.grey650,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
+                      height: 20 / 14,
                     ),
                   ),
 
@@ -73,7 +76,9 @@ class SplashScreen extends StatelessWidget {
                       onPressed: () => context.go(RoutePaths.register),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryDeep,
-                        // foregroundColor: AppColors.white,
+                        foregroundColor: AppColors.white,
+                        overlayColor: Colors.transparent,
+                        splashFactory: NoSplash.splashFactory,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(

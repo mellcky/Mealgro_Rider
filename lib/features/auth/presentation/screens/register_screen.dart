@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mealgro_rider_app/app/router/route_paths.dart';
@@ -15,18 +16,19 @@ import 'package:mealgro_rider_app/features/auth/presentation/widgets/auth_sign_i
 import 'package:mealgro_rider_app/features/auth/presentation/widgets/auth_social_button.dart';
 import 'package:mealgro_rider_app/features/auth/presentation/widgets/rider_type_toggle.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mealgro_rider_app/features/auth/presentation/providers/auth_provider.dart';
 
 /// Welcome / Sign-up screen — "Let's get you set up"
 ///
 /// Design: Onboarding > Register (Figma frame 390×844)
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   RiderType _riderType = RiderType.mealgro;
 
   final _nameController = TextEditingController();
@@ -87,6 +89,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _handleContinue() {
     if (_formKey.currentState?.validate() ?? false) {
+      ref.read(authProvider.notifier)
+        ..setRiderType(_riderType)
+        ..setRegistrationData(
+          name: _nameController.text.trim(),
+          email: _emailController.text.trim(),
+          phone: _phoneController.text.trim(),
+        );
       context.go(RoutePaths.verifyEmail);
     }
   }

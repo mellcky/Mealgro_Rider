@@ -30,6 +30,7 @@ class AuthSignInText extends StatelessWidget {
               color: AppColors.primary,
               fontSize: 13.sp,
               fontWeight: FontWeight.w600,
+              decoration: TextDecoration.underline,
             ),
           ),
         ],

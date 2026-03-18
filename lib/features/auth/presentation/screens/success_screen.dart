@@ -1,6 +1,4 @@
-﻿import 'dart:math' as math;
-
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,37 +26,27 @@ class SuccessScreen extends StatelessWidget {
             // ── M ring watermark — bottom-left overflow ───────────────────
             // Figma: left: -4.32, top: 399.96, 604.73×328.87, angle: 39.87°
             Positioned(
-              left: -4.32.w,
-              top: 399.96.h,
-              child: Transform.rotate(
-                angle: 39.87 * math.pi / 180,
-                alignment: Alignment.topLeft,
-                child: SvgPicture.asset(
-                  'assets/icons/sucess_mealgro_icon.svg',
-                  width: 604.73.w,
-                  height: 328.87.h,
-                  fit: BoxFit.fill,
-                ),
+              left: 75.w,
+              top: 430.96.h,
+              child: SvgPicture.asset(
+                'assets/icons/sucess_mealgro_icon.svg',
+                width: 634.73.w,
+                height: 368.87.h,
+                fit: BoxFit.fill,
               ),
             ),
 
             // ── G watermark — bottom-right ────────────────────────────────
-            // Figma: left: 189.6, top: 592.79, 253.90×233.86, angle: 39.87°
             Positioned(
-              left: 189.6.w,
-              top: 592.79.h,
-              child: Transform.rotate(
-                angle: 39.87 * math.pi / 180,
-                alignment: Alignment.topLeft,
-                child: SvgPicture.asset(
-                  'assets/icons/sucess_mealgro_icon_G.svg',
-                  width: 253.90.w,
-                  height: 233.86.h,
-                  fit: BoxFit.fill,
-                ),
+              left: 259.6.w,
+              top: 662.79.h,
+              child: SvgPicture.asset(
+                'assets/icons/sucess_mealgro_icon_G.svg',
+                width: 100.90.w,
+                height: 133.86.h,
+                fit: BoxFit.fill,
               ),
             ),
-
             // ── Foreground content ────────────────────────────────────────
             SafeArea(
               child: Padding(
@@ -118,11 +106,12 @@ class SuccessScreen extends StatelessWidget {
                     // ── Continue to app button ────────────────────────────
                     AuthContinueButton(
                       label: 'Continue to app',
+                      showArrow: false,
                       onPressed: () => context.go(RoutePaths.home),
                     ),
 
                     SizedBox(
-                      height: MediaQuery.of(context).padding.bottom + 16.h,
+                      height: MediaQuery.of(context).padding.bottom + 6.h,
                     ),
                   ],
                 ),
